@@ -143,8 +143,8 @@ def _1_write_to_xlsx(bus_schedules: list,
         sheet[f"G{i}"] = driver['end']
 
     # Сохраняем файл
-    workbook.save("bus_schedule.xlsx")
-    print("Результаты решения методом перебора успешно записаны в _1_bus_schedule.xlsx")
+    workbook.save("excel_files/_1_bus_schedule.xlsx")
+    print("Результаты решения методом перебора успешно записаны в 'excel_files/_1_bus_schedule.xlsx'")
 
 
 # Основная функция для симуляции расписания (решение в методом перебора)
