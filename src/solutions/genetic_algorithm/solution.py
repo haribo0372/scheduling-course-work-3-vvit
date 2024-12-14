@@ -4,6 +4,10 @@ from src.solutions.util.write_to_excel import write_to_xlsx
 
 
 def solution_by_genetic_algorithm():
+    """
+    Основная функция запуска решения с помощью генетического алгоритма
+    :return: None
+    """
     print("\n\n\n\t\t\tГЕНЕТИЧЕСКИЙ АЛГОРИТМ НАЧАЛСЯ\n")
     best_schedule = genetic_algorithm()
     driver_schedule_v1 = []

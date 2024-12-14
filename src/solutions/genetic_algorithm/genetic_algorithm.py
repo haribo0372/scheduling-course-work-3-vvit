@@ -8,8 +8,12 @@ from src.solutions.genetic_algorithm.generators import generate_initial_bus_sche
     generate_driver_schedule
 
 
-# Функция приспособленности
-def fitness_function(individual):
+def fitness_function(individual: dict) -> int:
+    """
+    Функция приспособленности
+    :param individual: dict
+    :return: int
+    """
     bus_schedule = individual["bus_schedule"]
     driver_schedule = individual["driver_schedule"]
 
@@ -34,7 +38,7 @@ def fitness_function(individual):
 
     if num_drivers_variant_1 < MIN_NUM_DRIVER_VARIANT_1:
         penalty += (
-                               MIN_NUM_DRIVER_VARIANT_1 - num_drivers_variant_1) * 50  # Штраф за каждого водителя, которого не хватает до 7
+                           MIN_NUM_DRIVER_VARIANT_1 - num_drivers_variant_1) * 50  # Штраф за каждого водителя, которого не хватает до 7
 
     for driver in driver_schedule:
         start_time = datetime.strptime(driver["start"], "%H:%M")
@@ -47,16 +51,23 @@ def fitness_function(individual):
     fitness -= penalty
     return max(fitness, 0)
 
-# Создание популяции
-def create_population():
+
+def create_population() -> list[dict]:
+    """
+    Создание популяции
+    :return: list[dict]
+    """
     population = []
     for _ in range(GENERATION_SIZE):
-        num_drivers_variant_1 = random.randint(1, NUM_DRIVERS - 1)  # Минимум один водитель каждого варианта
+        num_drivers_variant_1 = random.randint(1,
+                                               NUM_DRIVERS - 1)  # Минимум один водитель каждого варианта
         num_drivers_variant_2 = NUM_DRIVERS - num_drivers_variant_1
 
         # Генерация расписаний для обоих типов водителей
-        driver_schedule_variant_1 = generate_driver_schedule(num_drivers_variant_1, WORK_HOURS_VARIANT_1, variant=1)
-        driver_schedule_variant_2 = generate_driver_schedule(num_drivers_variant_2, WORK_HOURS_VARIANT_2, variant=2)
+        driver_schedule_variant_1 = generate_driver_schedule(num_drivers_variant_1,
+                                                             WORK_HOURS_VARIANT_1, variant=1)
+        driver_schedule_variant_2 = generate_driver_schedule(num_drivers_variant_2,
+                                                             WORK_HOURS_VARIANT_2, variant=2)
 
         individual = {
             "bus_schedule": generate_initial_bus_schedule(),
@@ -65,26 +76,47 @@ def create_population():
         population.append(individual)
     return population
 
-# Скрещивание
-def crossover(parent1, parent2):
+
+def crossover(parent1: dict, parent2: dict) -> dict:
+    """
+    Скрещивание
+    :param parent1: dict
+    :param parent2: dict
+    :return: dict
+    """
     split_point = len(parent1["bus_schedule"]) // 2
     child = {
-        "bus_schedule": parent1["bus_schedule"][:split_point] + parent2["bus_schedule"][split_point:],
-        "driver_schedule": parent1["driver_schedule"][:split_point] + parent2["driver_schedule"][split_point:]
+        "bus_schedule": parent1["bus_schedule"][:split_point] + parent2["bus_schedule"][
+                                                                split_point:],
+        "driver_schedule": parent1["driver_schedule"][:split_point] + parent2["driver_schedule"][
+                                                                      split_point:]
     }
     return child
 
-# Мутация
-def mutate(individual):
+
+def mutate(individual: dict) -> dict:
+    """
+    Мутация
+    :param individual: dict
+    :return: dict
+    """
     if random.random() < MUTATION_RATE:
-        individual["bus_schedule"][random.randint(0, len(individual["bus_schedule"]) - 1)] = generate_initial_bus_schedule()[0]
+        individual["bus_schedule"][random.randint(0, len(individual["bus_schedule"]) - 1)] = \
+        generate_initial_bus_schedule()[0]
     if random.random() < MUTATION_RATE:
         new_variant = 1 if random.random() > 0.5 else 2
-        individual["driver_schedule"][random.randint(0, len(individual["driver_schedule"]) - 1)] = generate_driver_schedule(1, WORK_HOURS_VARIANT_1 if new_variant == 1 else WORK_HOURS_VARIANT_2, variant=new_variant)[0]
+        individual["driver_schedule"][random.randint(0, len(individual["driver_schedule"]) - 1)] = \
+        generate_driver_schedule(1,
+                                 WORK_HOURS_VARIANT_1 if new_variant == 1 else WORK_HOURS_VARIANT_2,
+                                 variant=new_variant)[0]
     return individual
 
-# Основной алгоритм
-def genetic_algorithm():
+
+def genetic_algorithm() -> dict:
+    """
+    Основной алгоритм
+    :return: dict
+    """
     population = create_population()
     for generation in range(NUM_GENERATIONS):
         population = sorted(population, key=fitness_function, reverse=True)
@@ -100,8 +132,7 @@ def genetic_algorithm():
 
         # Лучшая приспособленность текущего поколения
         best_individual = population[0]
-        print(f"Поколение {generation + 1}: Лучшая приспособленность = {fitness_function(best_individual)}")
+        print(
+            f"Поколение {generation + 1}: Лучшая приспособленность = {fitness_function(best_individual)}")
 
     return population[0]
-
-

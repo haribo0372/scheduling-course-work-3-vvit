@@ -7,8 +7,12 @@ from src.solutions.util.print_drivers import print_schedule_driers_v1, print_sch
 from src.solutions.util.write_to_excel import write_to_xlsx
 
 
-# Основная функция для симуляции расписания (решение в методом перебора)
-def solution_by_complete_bust():
+def solution_by_complete_bust() -> None:
+    """
+    Основная функция для симуляции расписания
+    :return: None
+    """
+
     print("\t\t\tМЕТОД ПОЛНОГО ПЕРЕБОРА НАЧАЛСЯ\n")
     start_hour = 6
     end_hour = 22

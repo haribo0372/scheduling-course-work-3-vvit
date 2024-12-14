@@ -5,6 +5,14 @@ def write_to_xlsx(file_name: str,
                   bus_schedules: list,
                   driver_schedule_v1: list[dict[str, str]],
                   driver_schedule_v2: list[dict[str, str]]) -> None:
+    """
+    Функция для записи расписания в xlsx file
+    :param file_name: str
+    :param bus_schedules: list
+    :param driver_schedule_v1: list[dict[str, str]
+    :param driver_schedule_v2: list[dict[str, str]]
+    :return: None
+    """
     workbook = Workbook()
     sheet = workbook.active
 

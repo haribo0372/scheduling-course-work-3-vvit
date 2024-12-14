@@ -5,8 +5,15 @@ from src.solutions.complete_bust import (PEAK_HOURS, INTERVAL_PEAK, NORMAL_HOURS
                                          INTERVAL_LOW, LOW_HOURS)
 
 
-# Функция для генерации расписания автобусов
-def generate_bus_schedule(start_time, end_time, interval):
+def generate_bus_schedule(start_time: int, end_time: int, interval: int) -> list[int]:
+    """
+    Функция для генерации расписания автобусов
+
+    :param start_time: int
+    :param end_time: int
+    :param interval: int
+    :return: list
+    """
     schedule = []
     current_time = start_time
     while current_time < end_time:
@@ -15,8 +22,13 @@ def generate_bus_schedule(start_time, end_time, interval):
     return schedule
 
 
-# Функция для определения интервалов между автобусами по потоку пассажиров
-def determine_interval(hour):
+def determine_interval(hour: int) -> int:
+    """
+    Функция для определения интервалов между автобусами по потоку пассажиров
+
+    :hour: int
+    :return: int
+    """
     for start, end in PEAK_HOURS:
         if start <= hour < end:
             return INTERVAL_PEAK
@@ -29,8 +41,19 @@ def determine_interval(hour):
     return INTERVAL_LOW
 
 
-# Функция для распределения водителей
-def generate_driver_schedule(num_drivers, work_hours, start_interval, variant=1):
+def generate_driver_schedule(num_drivers: int,
+                             work_hours: int,
+                             start_interval: int,
+                             variant: int = 1) -> list[dict]:
+    """
+    Функция для распределения водителей
+
+    :param num_drivers: int
+    :param work_hours: int
+    :param start_interval: int
+    :param variant: int
+    :return: list[dict[str, list/str]]
+    """
     driver_schedule = []
     for i in range(num_drivers):
         shift_start = random.randint(6, start_interval)

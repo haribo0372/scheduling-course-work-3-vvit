@@ -5,7 +5,11 @@ from src.solutions.complete_bust.generators import generate_driver_schedule
 from src.solutions.genetic_algorithm.genetic_algorithm import genetic_algorithm
 
 
-def compare_time():
+def compare_time() -> None:
+    """
+    Измеряет время выполнения каждого подхода и выводит результаты в консоль
+    :return: None
+    """
     def measure_time(func, *args, **kwargs):
         """
         Измеряет время выполнения переданной функции.

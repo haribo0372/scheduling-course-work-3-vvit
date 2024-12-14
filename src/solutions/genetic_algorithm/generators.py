@@ -4,10 +4,14 @@ from datetime import timedelta, datetime
 from src.solutions.genetic_algorithm import NUM_BUSES, BUS_INTERVAL_MIN
 
 
-# Функция для генерации начального расписания автобусов
-def generate_initial_bus_schedule():
+def generate_initial_bus_schedule() -> list[str]:
+    """
+    Функция для генерации начального расписания автобусов
+    :return: list[str]
+    """
     schedule = []
     current_time = datetime(2024, 1, 1, 6, 0)
+
     # Генерируем время отправления автобусов с интервалом 10 минут
     for _ in range(NUM_BUSES):
         schedule.append(current_time.strftime("%H:%M"))
@@ -15,8 +19,16 @@ def generate_initial_bus_schedule():
     return schedule
 
 
-# Функция для генерации расписания водителей
-def generate_driver_schedule(num_drivers, work_hours, variant=1):
+def generate_driver_schedule(num_drivers: int,
+                             work_hours: int,
+                             variant: int = 1) -> list[dict]:
+    """
+    Функция для генерации расписания водителей
+    :param num_drivers: int
+    :param work_hours: int
+    :param variant: int
+    :return: list[dict]
+    """
     driver_schedule = []
     for i in range(num_drivers):
         shift_start = random.randint(6, 10)
@@ -53,8 +65,11 @@ def generate_driver_schedule(num_drivers, work_hours, variant=1):
     return driver_schedule
 
 
-# Генерация нагрузки пассажиров для всех часов
-def generate_passenger_load():
+def generate_passenger_load() -> list[int]:
+    """
+    Генерация нагрузки пассажиров для всех часов
+    :return: list[int]
+    """
     load = [random.randint(20, 50) for _ in range(24)]  # Базовая загрузка
     for hour in range(7, 9):  # Утренний час пик
         load[hour] += 50
