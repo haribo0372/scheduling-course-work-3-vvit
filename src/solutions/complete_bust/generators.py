@@ -1,5 +1,5 @@
-from datetime import datetime, timedelta
 import random
+from datetime import datetime, timedelta
 
 from src.solutions.complete_bust import (PEAK_HOURS, INTERVAL_PEAK, NORMAL_HOURS, INTERVAL_NORMAL,
                                          INTERVAL_LOW, LOW_HOURS)

@@ -102,13 +102,13 @@ def mutate(individual: dict) -> dict:
     """
     if random.random() < MUTATION_RATE:
         individual["bus_schedule"][random.randint(0, len(individual["bus_schedule"]) - 1)] = \
-        generate_initial_bus_schedule()[0]
+            generate_initial_bus_schedule()[0]
     if random.random() < MUTATION_RATE:
         new_variant = 1 if random.random() > 0.5 else 2
         individual["driver_schedule"][random.randint(0, len(individual["driver_schedule"]) - 1)] = \
-        generate_driver_schedule(1,
-                                 WORK_HOURS_VARIANT_1 if new_variant == 1 else WORK_HOURS_VARIANT_2,
-                                 variant=new_variant)[0]
+            generate_driver_schedule(1,
+                                     WORK_HOURS_VARIANT_1 if new_variant == 1 else WORK_HOURS_VARIANT_2,
+                                     variant=new_variant)[0]
     return individual
 
 
